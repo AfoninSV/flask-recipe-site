@@ -1,0 +1,29 @@
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for meal in content %}
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="{{ meal['strMealThumb'] }}" class="bd-placeholder-img card-img-top" width="100%" height="100%" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <div class="card-body">
+                            <p class="card-text">{{ meal["strMeal"] }}</p>
+                            <h4>{{ len(meal["Ingredients"]) }} ingredients</h4>
+                            <ul>
+
+                            </ul>
+                            <p>{{ meal["strInstructions"] }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{{ url_for('meals.meal', meal_id=meal['idMeal']) }}">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
