@@ -1,11 +1,15 @@
 from typing import Optional, Dict
 from pathlib import Path
 from itertools import combinations
+from string import ascii_lowercase
 import os
 import re
 
 import requests
 from dotenv import find_dotenv, load_dotenv
+
+from .db import MealInterface
+
 
 if not find_dotenv():
     exit("No .env file found")
@@ -21,7 +25,7 @@ headers = {
 
 def make_response(
     url_action: str, params: Optional[Dict] = None, headers: Dict[str, str] = headers
-) -> list:
+) -> list | dict:
     url = f"https://themealdb.p.rapidapi.com/{url_action}.php"
     response = requests.get(url, headers=headers, params=params).json().get("meals")
     return response
@@ -79,6 +83,32 @@ def meals_by_first_letter(letter: str) -> list[dict]:
     return response
 
 # helping functions
+
+
+def get_all_recipes() -> list[dict]:
+    """ Returns list of all recipes
+    and writes them into database table `meal`.
+     Used upon first deployment to fullfill db."""
+
+    meals = list()
+    for letter in ascii_lowercase:
+        meals_found: list = meals_by_first_letter(letter) or list()
+
+        for meal in meals_found:
+            if not MealInterface.get_one(meal["idMeal"]):
+                meal_ingredients_list = get_meal_ingredients(meal["idMeal"])
+                meal_ingredients_str = "\n".join(meal_ingredients_list)
+                ingredients_qty = len(meal_ingredients_list)
+                meal["Ingredients"] = meal_ingredients_str
+                meal["Ingredients_qty"] = ingredients_qty
+
+                # write meal to database
+                MealInterface.create(meal)
+
+        # add found meals[dict] to content list
+        meals += meals_found
+
+    return meals
 
 
 def search_by_ingredients(ingredients_string: str) -> Optional[list[dict]]:
