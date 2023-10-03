@@ -8,9 +8,10 @@ bp = Blueprint("meals", __name__, url_prefix="/meal")
 
 def search():
     req = request.method
-    args = request.form.get("search_keywords")
     search_keywords: str = request.form.get("search_keywords")
-    content = api.search_by_ingredients(search_keywords)
+    meals_list = api.search_by_ingredients(search_keywords)
+    content = [MealInterface.get_one(meal["idMeal"]) for meal in meals_list]
+
     if not content:
         flash("Nothing found, please try again.")
     return render_template("index.html", content=content)
