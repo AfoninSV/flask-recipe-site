@@ -31,19 +31,16 @@
             {% endif %}
         {% endwith %}
 
-        <div>
-            {% include "search.html" %}
-        </div>
-
-
         <section>
             {% if meal %}
                 {% include "post.html" %}
             {% elif content %}
-                {% include "jumbotron.html" %}
+                {% if carousel_meals %}
+                    {% include "carousel.html" %}
+                {% endif %}
                 {% include "posts.html" %}
             {% endif %}
         </section>
-
+        <script src={{ url_for('static', filename='assets/dist/js/bootstrap.bundle.min.js') }}></script>
     </body>
 </html>
