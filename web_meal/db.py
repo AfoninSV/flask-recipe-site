@@ -6,7 +6,6 @@ from sqlalchemy.orm import Session
 from abc import ABC, abstractmethod
 import os
 
-from . import meal_api as api
 from . db_models import Base, User, Meal
 
 load_dotenv()
@@ -54,7 +53,8 @@ class MealInterface(ABC):
                 return
 
             # create instance of Meal record
-            meal_ingr_list = api.get_meal_ingredients(meal["idMeal"])
+            from .meal_api import get_meal_ingredients
+            meal_ingr_list = get_meal_ingredients(meal["idMeal"])
             meal_ingr_str = "\n".join(meal_ingr_list)
             print("Meal created")
             meal_to_add = Meal(meal_id=meal["idMeal"],
