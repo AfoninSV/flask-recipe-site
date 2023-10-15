@@ -1,6 +1,6 @@
-from flask import Blueprint, request, render_template, redirect, url_for, flash
+from flask import Blueprint, request, render_template, flash
 
-from . import meal_api as api
+import meal_api as api
 from .db import MealInterface
 
 bp = Blueprint("meals", __name__, url_prefix="/meal")

@@ -3,8 +3,7 @@ from secrets import token_hex
 
 from flask import Flask, request
 
-from . import views, posts
-from web_meal import meal_api as api
+import views
 
 
 def create_app():
