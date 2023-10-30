@@ -2,6 +2,12 @@
 
 This is a web application that displays recipes. It uses Flask as the backend, SQLAlchemy to interact with a MySQL database, and connects to an external API from RapidAPI. The frontend is built using Bootstrap and CSS.
 
+## Access the Deployed Site
+
+You can access the deployed version of this recipe site at the following URL:
+
+[https://www.tastyexplorer.com/](https://www.tastyexplorer.com/)
+
 ## Table of Contents
 
 - [Installation](#installation)
