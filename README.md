@@ -4,7 +4,7 @@ This is a web application that displays recipes. It uses Flask as the backend, S
 
 ## Access the Deployed Site
 
-You can access the deployed version of this recipe site at the following URL:
+Access the improved recipe site at the following URL:
 
 [https://www.tastyexplorer.com/](https://www.tastyexplorer.com/)
 
